@@ -24,10 +24,6 @@ def on_conn_change(pvname=None, conn=None, **kws):
         email_content = "\n" + 'Channel ' + pvname + ' connection status changed! to disconnected.'
         send_email(email_content, pvname)
         print(email_content)
-    else:
-        print(kws)
-        print(pvname)
-        print(conn)
 
 
 def send_email(content, header):
