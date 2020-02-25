@@ -1,8 +1,9 @@
 import epics
-import time
+import os
 import smtplib
 from email.message import EmailMessage
 
+AOM_IP = '172.17.65.100'
 EMAILS_TO_SEND = ['brojas@gemini.edu']
 CHANNELS_LIST = ['aom:health']
 # CHANNELS_LIST = ['ws:present', 'ec:present']
@@ -53,10 +54,10 @@ def send_email(content, header):
 
 if __name__ == '__main__':
 
-    # don't forget execute the following command line to have access to aom:health channel:
-    # export EPICS_CA_ADDR_LIST=172.17.65.100
+    # grant access to channels
+    os.environ['EPICS_CA_ADDR_LIST'] = AOM_IP
 
-    # set up the PV
+    # set up the PV's
     for name in CHANNELS_LIST:
         p = epics.PV(name, connection_callback=on_conn_change)
 
